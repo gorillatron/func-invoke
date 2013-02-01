@@ -1,8 +1,9 @@
 
 
 module.exports = function( fn ) {
+  var args = Array.prototype.slice.call(arguments, 1)
   return function( obj ) {
-    return obj[ fn ].apply( obj, Array.prototype.slice.call(arguments, 1) )
+    return obj[ fn ].apply( obj, args.concat(Array.prototype.slice.call(arguments, 1)) )
   }
 }
 
