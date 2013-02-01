@@ -1,0 +1,26 @@
+{
+  "name": "invoke",
+  "version": "0.0.1",
+  "description": "Functional helper for invoking methon on instance, sync and async",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:gorillatron/invoke.git"
+  },
+  "keywords": [
+    "async",
+    "async.js",
+    "functional",
+    "invokation",
+    "helper"
+  ],
+  "author": "Jørn Andre Tangen[@gorillatron]",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "~1.8.1",
+    "async": "~0.1.22"
+  }
+}
