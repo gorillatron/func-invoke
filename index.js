@@ -11,7 +11,7 @@ module.exports.async = function( fn ) {
     return obj[ fn ].call(obj, function( err ) {
       if( err )
         return next( err )
-      next( null )
+      next( null, Array.prototype.slice.call(arguments, 1) )
     })
   }
 }
