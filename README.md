@@ -3,7 +3,7 @@
 
 ```javascript
 
-var invoke = require( 'invoke' )
+var invoke = require( 'func-invoke' )
 
 documents.forEach( invoke('setState', 'saved') )
 ```
@@ -12,7 +12,7 @@ documents.forEach( invoke('setState', 'saved') )
 
 ```javascript
 
-var invoke = require( 'invoke' ).async
+var invoke = require( 'func-invoke' ).async
 
 async.forEach( documents, invoke('save', 'redis'), function( err ){
   
