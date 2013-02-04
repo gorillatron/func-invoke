@@ -1,9 +1,12 @@
 var assert  = require( 'assert' ),
     async   = require( 'async' ),
-    invoke  = require( '../index' )
+    invoke  = require( '../index' ),
+    avoke   = invoke.async
 
 
 describe('invoke.js', function() {
+
+
 
   describe('sync', function() {
 
@@ -22,7 +25,15 @@ describe('invoke.js', function() {
 
     })
 
-    it('it should pass the parameters after the methodname to the returned function', function() {
+    it('should partially apply the parameters passed after method name to the returned function', function() {
+
+      var getExclaimedName = invoke('getName', '!')
+
+      assert.equal( getExclaimedName(user), 'Joe!' )      
+
+    })
+
+    it('it should pass the parameters after the instance to the returned function', function() {
 
       var getName = invoke('getName')
 
@@ -32,9 +43,9 @@ describe('invoke.js', function() {
 
   })
 
-  describe('async', function() {
 
-    var avoke = invoke.async
+
+  describe('async', function() {
 
     var users = []
 
@@ -44,10 +55,11 @@ describe('invoke.js', function() {
         this.name = name
       }
 
-      User.prototype.getName = function( cb ) {
-        var name = this.name
+      User.prototype.setName = function( name, cb ) {
+        var self = this
         setTimeout(function() {
-          cb( null, name )
+          self.name = name
+          cb( null )
         },1)
       }
 
@@ -69,8 +81,31 @@ describe('invoke.js', function() {
 
     })
 
-    it('should', function() {
+    it('should invoke the method asynchronoyusly', function( done ) {
       
+      users.forEach( avoke('setName', 'newname') )
+
+      setTimeout(function() {
+        users.forEach(function( user ) {
+          assert.equal( user.name, 'newname' )
+        })
+        done()
+      }, 30)
+
+    })
+
+    it('run the callback in it is supplied', function() {
+
+      var i = 0
+
+      users.forEach( avoke('setName', 'name', function() {
+        i++
+      }))
+
+      setTimeout(function() {
+        assert.equal( i, 3 )
+      },30)
+
     })
 
   })
