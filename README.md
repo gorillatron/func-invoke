@@ -15,6 +15,6 @@ documents.forEach( invoke('setState', 'saved') )
 var invoke = require( 'func-invoke' ).async
 
 async.forEach( documents, invoke('save', 'redis'), function( err ){
-  
+  // done saving, or error
 })
 ```
